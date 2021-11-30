@@ -1,15 +1,16 @@
-let tweets = require('../data/tweets.json');
+// let tweets = require('../data/tweets.json');
+const dao = require('../data/db/tweets/tweets-dao');
+const tweets = require("../data/tweets.json")
 
 module.exports = (app) => {
 
-    const findAllTweets = (req, res) => {
-        res.json(tweets);
-    }
-    // app.get('/api/tweets', findAllTweets);
+    const findAllTweets = (req, res) =>
+        dao.findAllTweets()
+            .then(tweets => res.json(tweets));
 
     const postNewTweet = (req, res) => {
         const newTweet = {
-            _id: (new Date()).getTime() + '',
+            // _id: (new Date()).getTime() + '',
             "topic": "Web Development",
             "userName": "Xueying He",
             "verified": false,
@@ -24,20 +25,15 @@ module.exports = (app) => {
             },
             ...req.body,
         }
-        // newTweet['_id'] = (new Date()).getTime();
-        tweets = [
-            newTweet,
-            ...tweets
-        ];
-        res.json(newTweet);
+        dao.createTweet(newTweet)
+            .then((insertTweet)) =>res.json(insertTweet));
     }
 
     // app.post('/api/tweets', postNewTweet);
 
     const deleteTweet = (req, res) => {
-        const id = req.params['id'];
-        tweets = tweets.filter(tweet => tweet._id !== id);
-        res.sendStatus(200);
+        dao.deleteTweet(req.params.id)
+            .then((status) =>res.send(status));
     }
     // app.delete('/api/tweets/:id', deleteTweet);
 
@@ -59,6 +55,8 @@ module.exports = (app) => {
         });
         res.sendStatus(200);
     }
+
+
     app.put('/api/tweets/:id/like', likeTweet);
     app.delete('/api/tweets/:id', deleteTweet);
     app.post('/api/tweets', postNewTweet);

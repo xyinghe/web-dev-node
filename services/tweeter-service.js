@@ -26,7 +26,7 @@ module.exports = (app) => {
             ...req.body,
         }
         dao.createTweet(newTweet)
-            .then((insertTweet)) =>res.json(insertTweet));
+            .then((tweets) =>res.json(tweets));
     }
 
     // app.post('/api/tweets', postNewTweet);
@@ -39,7 +39,8 @@ module.exports = (app) => {
 
     const likeTweet = (req, res) => {
         const id = req.params['id'];
-        tweets = tweets.map(tweet => {
+        const tweet = dao.findTweetById(id)
+            .then((tweet) =>{
             if (tweet._id === id) {
                 if (tweet.liked === true) {
                     tweet.liked = false;
@@ -48,12 +49,17 @@ module.exports = (app) => {
                     tweet.liked = true;
                     tweet.stats.likes++;
                 }
-                return tweet;
+                dao.updateTweet(id,tweet)
+                    .then(
+                        status => res.send(status)
+                    )
             } else {
-                return tweet;
+                dao.updateTweet(id,tweet)
+                    .then(
+                        status => res.send(status)
+                    )
             }
         });
-        res.sendStatus(200);
     }
 
 

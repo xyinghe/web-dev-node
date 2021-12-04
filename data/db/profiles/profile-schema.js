@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
     name: String,
+    tweetsCount:Number,
     handle: String,
     profilePicture: String,
     bannerPicture: String,

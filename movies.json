@@ -1,0 +1,5 @@
+{"_id":{"$oid":"61ab75b9f0718ca2acf012db"},"title":"New Movie","__v":0}
+{"_id":{"$oid":"61ab85d7b5c6fc5a3d972153"},"title":"New Movie","__v":0}
+{"_id":{"$oid":"61ab85d7b5c6fc5a3d97218e"},"title":"New Movie","__v":0}
+{"_id":{"$oid":"61ab85f93baf108bb7649059"},"title":"Aliens","rating":4.5}
+{"_id":{"$oid":"61ab86283baf108bb764905a"},"title":"Avatar","rating":4.7}
